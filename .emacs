@@ -33,6 +33,7 @@
  '(package-selected-packages
    (quote
     (py-autopep8 exec-path-from-shell flycheck elpy flymd markdown-mode tangotango-theme)))
+ '(send-mail-function (quote mailclient-send-it))
  '(show-paren-mode t))
 
 ;; Font
@@ -83,6 +84,12 @@
 ;;;; =========================================================================
 ;;;; Different setting of windows
 ;;;; =========================================================================
+
+;; Move between windows using arrows
+(global-set-key (kbd "C-x <up>") 'windmove-up)
+(global-set-key (kbd "C-x <down>") 'windmove-down)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+(global-set-key (kbd "C-x <left>") 'windmove-left)
 
 (when (fboundp 'winner-mode)
   (winner-mode 1))
@@ -142,6 +149,7 @@
 ;;;; ==========================================================================
 ;; Copy $PATH from terminal
 (exec-path-from-shell-initialize)
+;(add-to-list 'tramp-remote-path "/home/nazarovs/software/anaconda3/envs/")
 
 ;;; ================================
 ;;; Hook modes to extension of files
@@ -154,28 +162,52 @@
  'auto-mode-alist '("\\.bds\\'" . java-mode)
  )
 
+;; YAML mode (.yml)
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
 ;;; ================================
 ;;; ESS - package for statistics
 ;;; ================================
 (add-to-list 'load-path "/Users/Owner/.emacs.d/plugins/ESS/lisp/")
 (load "ess-site")
+(setq ess-use-auto-complete 'script-only)
 
 ;; R mode
 ;;(setq inferior-R-program-name "/usr/local/bin/R")
+(setq ess-smart-S-assign-key ":")
+(ess-toggle-S-assign nil)
+(ess-toggle-S-assign nil)
+(ess-toggle-underscore nil) ; leave underscore key alone!
 
 ;;; ================================
 ;;; ELPY - IDE for python
 ;;; ================================
 (elpy-enable)
 ;; python version for elpy
-(setq elpy-rpc-python-command "/usr/local/bin/Python3")
+;(setq elpy-rpc-python-command "/usr/local/bin/python3")
+(setq elpy-rpc-python-command "python3")
 ;; python version for interactive shell
-(setq python-shell-interpreter "/usr/local/bin/Python3")
+;(setq python-shell-interpreter "/usr/local/bin/python3")
+;(setq python-shell-interpreter "python3")
+(setq python-shell-interpreter "/home/nazarovs/software/anaconda3/envs/pytorch/bin/python3")
 ;; Turn off warning message about python has no realine tool
 (setq python-shell-completion-native-enable nil)
 ;; Correct Python code style according to pep8
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+;; Set environments based on directory name
+;(pyvenv-enable)
+;(setenv "WORKON_HOME" "/home/nazarovs/software/anaconda3/envs")
+;(pyvenv-mode 1)
+
+;; (use-package pyvenv
+;;         :ensure t
+;;         :init
+;;         (setenv "WORKON_HOME" "/home/nazarovs/software/anaconda3/envs")
+;;         (pyvenv-mode 1)
+;;         (pyvenv-tracking-mode 1))
 
 ;;; ================================
 ;;; On-the-fly syntax checking
@@ -185,5 +217,14 @@
 ;; Checking spelling
 (setq ispell-program-name "/usr/local/bin/aspell")
 (setq ispell-dictionary "en_GB")
+
+;;; ================================
+;;; dockerfile - mode
+;;; ================================
+(add-to-list 'load-path "/Users/owner/.emacs.d/plugins")
+(require 'dockerfile-mode)
+(add-to-list
+ 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)
+ )
 
 
