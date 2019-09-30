@@ -42,7 +42,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 120 :family "DejaVu Sans Mono")))))
+ '(default ((t (:height 80 :family "DejaVu Sans Mono")))))
 
 
 ;;;; ==========================================================================
@@ -55,15 +55,15 @@
 
 
 ;; Yasnippet - complete syntax based on patterns of language
-(add-to-list 'load-path "/Users/Owner/.emacs.d/plugins/yasnippet")
+(add-to-list 'load-path "/home/nazarovs/.emacs.d/plugins/yasnippet")
 (require 'yasnippet)
 (yas-global-mode 1)
 
 ;; Nyan-mode
-(add-to-list 'load-path "/Users/Owner/.emacs.d/plugins/nyan-mode")
-(require 'nyan-mode)
-(setq-default nyan-wavy-trail t)
-(nyan-mode)
+;(add-to-list 'load-path "/home/nazarovs/.emacs.d/plugins/nyan-mode")
+;(require 'nyan-mode)
+;(setq-default nyan-wavy-trail t)
+;(nyan-mode)
 
 ;; Camel-case function
 (defun camelCase-to_underscores (start end)
@@ -117,7 +117,7 @@
 (setq java-basic-offset 2) ;2 spaces instead of tab for c
 
 ;; Mark the column with white line
-(add-to-list 'load-path "/Users/Owner/.emacs.d/plugins/")
+(add-to-list 'load-path "/home/nazarovs/.emacs.d/plugins/")
 (require 'fill-column-indicator)
 
 ;; Settings for the line
@@ -169,7 +169,7 @@
 ;;; ================================
 ;;; ESS - package for statistics
 ;;; ================================
-(add-to-list 'load-path "/Users/Owner/.emacs.d/plugins/ESS/lisp/")
+(add-to-list 'load-path "/home/nazarovs/.emacs.d/plugins/ESS/lisp/")
 (load "ess-site")
 (setq ess-use-auto-complete 'script-only)
 
@@ -194,8 +194,8 @@
 ;; Turn off warning message about python has no realine tool
 (setq python-shell-completion-native-enable nil)
 ;; Correct Python code style according to pep8
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+;(require 'py-autopep8)
+;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 ;; Set environments based on directory name
 ;(pyvenv-enable)
@@ -228,3 +228,7 @@
  )
 
 
+;;; ============================================================
+;;; Key bindings
+;;; ============================================================
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
