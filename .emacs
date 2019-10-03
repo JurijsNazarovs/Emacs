@@ -196,6 +196,9 @@
 ;; Correct Python code style according to pep8
 ;(require 'py-autopep8)
 ;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(add-hook 'elpy-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'elpy-yapf-fix-code nil t)))
 
 ;; Set environments based on directory name
 ;(pyvenv-enable)
