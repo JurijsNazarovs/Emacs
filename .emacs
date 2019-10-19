@@ -32,7 +32,7 @@
  '(markdown-command "/usr/local/bin/pandoc")
  '(package-selected-packages
    (quote
-    (py-autopep8 exec-path-from-shell flycheck elpy flymd markdown-mode tangotango-theme)))
+    (multiple-cursors py-autopep8 exec-path-from-shell flycheck elpy flymd markdown-mode tangotango-theme)))
  '(send-mail-function (quote mailclient-send-it))
  '(show-paren-mode t))
 
@@ -187,6 +187,7 @@
 ;; python version for elpy
 ;(setq elpy-rpc-python-command "/usr/local/bin/python3")
 (setq elpy-rpc-python-command "python3")
+;(setq elpy-rpc-venv-command "~/software/anaconda3/envs/pytorch/")
 ;; python version for interactive shell
 ;(setq python-shell-interpreter "/usr/local/bin/python3")
 ;(setq python-shell-interpreter "python3")
@@ -229,6 +230,22 @@
 (add-to-list
  'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)
  )
+
+;;; ================================
+;;; Multiple-cursors
+;;; ================================
+(require 'multiple-cursors)
+(define-key mc/keymap (kbd "<return>") nil)
+
+(global-unset-key (kbd "C-<down-mouse-1>"))
+(global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)
+
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
+;Sometimes you end up with cursors outside of your view. You can scroll the
+;screen to center on each cursor with C-v and M-v or you can press C-' to hide
+;all lines without a cursor, press C-' again to unhide.
 
 
 ;;; ============================================================
