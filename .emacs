@@ -195,11 +195,12 @@
 ;; Turn off warning message about python has no realine tool
 (setq python-shell-completion-native-enable nil)
 ;; Correct Python code style according to pep8
-;(require 'py-autopep8)
-;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-(add-hook 'elpy-mode-hook
-          (lambda ()
-            (add-hook 'before-save-hook 'elpy-yapf-fix-code nil t)))
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(setq py-autopep8-options '("--ignore=E402"))
+;(add-hook 'elpy-mode-hook
+;          (lambda ()
+;            (add-hook 'before-save-hook 'elpy-yapf-fix-code nil t)))
 
 ;; Set environments based on directory name
 ;(pyvenv-enable)
