@@ -1,0 +1,20 @@
+;; -*- emacs-lisp -*- <22/05/09 14:07:35 /Users/owner/.emacs.d/tramp>
+;; Tramp connection history.  Don't change this file.
+;; Run `M-x tramp-cleanup-all-connections' instead.
+
+(((tramp-file-name "ssh" "nazarovs" nil "128.104.158.100" nil nil nil)
+  ("uname" "Linux 5.4.0-99-generic")
+  ("locale" "LC_ALL=en_US.utf8")
+  ("test" "test")
+  ("remote-path"
+   ("/bin" "/usr/bin" "/sbin" "/usr/sbin" "/usr/local/bin" "/usr/local/sbin"))
+  ("pipe-buf" 4096)
+  ("remote-shell" "/bin/sh")
+  ("id" "/usr/bin/id")
+  ("gid-integer" 1003)
+  ("stat" "env QUOTING_STYLE=locale \\stat")
+  ("file-exists" "test -e")
+  ("gid-string" "nazarovs")
+  ("readlink" "\\readlink")
+  ("case-insensitive" nil)
+  ("env-u-option" t)))
