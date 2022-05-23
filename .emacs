@@ -1,6 +1,8 @@
 (add-to-list 'load-path "/Users/Owner/.emacs.d/cl-lib")
 (require 'cl-lib)
 
+(setq ring-bell-function 'ignore) ;turn of bell-sound
+
 ;; Melpa - source to install packages
 (require 'package)
 (add-to-list 'package-archives
@@ -32,7 +34,7 @@
  '(markdown-command "/usr/local/bin/pandoc")
  '(package-selected-packages
    (quote
-    (py-autopep8 exec-path-from-shell flycheck elpy flymd markdown-mode tangotango-theme)))
+    (auctex multiple-cursors exec-path-from-shell flycheck elpy flymd markdown-mode tangotango-theme)))
  '(send-mail-function (quote mailclient-send-it))
  '(show-paren-mode t))
 
@@ -185,17 +187,23 @@
 ;;; ================================
 (elpy-enable)
 ;; python version for elpy
-;(setq elpy-rpc-python-command "/usr/local/bin/python3")
-(setq elpy-rpc-python-command "python3")
+;(setq elpy-rpc-python-command "/usr/local/bin/python3") ;Local
+(setq elpy-rpc-python-command "python3") ;Server
+
 ;; python version for interactive shell
 ;(setq python-shell-interpreter "/usr/local/bin/python3")
 ;(setq python-shell-interpreter "python3")
 (setq python-shell-interpreter "/home/nazarovs/software/anaconda3/envs/pytorch/bin/python3")
+;(setq python-shell-interpreter "/home/nazarovs/software/anaconda3/envs/sde/bin/python3")
+
 ;; Turn off warning message about python has no realine tool
 (setq python-shell-completion-native-enable nil)
 ;; Correct Python code style according to pep8
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+;(require 'py-autopep8)
+;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+(add-hook 'elpy-mode-hook
+          (lambda ()
+            (add-hook 'before-save-hook 'elpy-yapf-fix-code nil t)))
 
 ;; Set environments based on directory name
 ;(pyvenv-enable)
@@ -208,6 +216,19 @@
 ;;         (setenv "WORKON_HOME" "/home/nazarovs/software/anaconda3/envs")
 ;;         (pyvenv-mode 1)
 ;;         (pyvenv-tracking-mode 1))
+
+;; ---- Solution of reloading modules Start ----
+;; Run python and pop-up its shell.
+;; Kill process to solve the reload modules problem.
+(defun my-restart-python-console ()
+  "Restart python console before evaluate buffer or region to avoid various uncanny conflicts, like not reloding modules even when they are changed"
+  (interactive)
+  (if (get-buffer "*Python*")
+      (let ((kill-buffer-query-functions nil)) (kill-buffer "*Python*")))
+  (elpy-shell-send-region-or-buffer))
+
+(global-set-key (kbd "C-c C-x C-c") 'my-restart-python-console)
+;; ---- Solution of reloading modules End ----
 
 ;;; ================================
 ;;; On-the-fly syntax checking
@@ -227,4 +248,34 @@
  'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)
  )
 
+;;; ================================
+;;; Multiple-cursors
+;;; ================================
+(require 'multiple-cursors)
+(define-key mc/keymap (kbd "<return>") nil)
+
+(global-unset-key (kbd "C-<down-mouse-1>"))
+(global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click)
+
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
+;Sometimes you end up with cursors outside of your view. You can scroll the
+;screen to center on each cursor with C-v and M-v or you can press C-' to hide
+;all lines without a cursor, press C-' again to unhide.
+
+
+
+
+
+;;; ============================================================
+;;; Key bindings
+;;; ============================================================
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+
+
+
+;;; ================================
+;;; TEX
+;;; ================================
 
