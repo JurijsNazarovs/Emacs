@@ -1,5 +1,5 @@
-(add-to-list 'load-path "/Users/Owner/.emacs.d/cl-lib")
-(require 'cl-lib)
+;(add-to-list 'load-path "/Users/Owner/.emacs.d/cl-lib")
+;(require 'cl-lib) - depreciated
 
 (setq ring-bell-function 'ignore) ;turn of bell-sound
 
@@ -25,17 +25,15 @@
  '(ansi-color-names-vector
    ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
  '(column-number-mode t)
- '(custom-enabled-themes (quote (tangotango)))
+ '(custom-enabled-themes '(tangotango))
  '(custom-safe-themes
-   (quote
-    ("5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" default)))
+   '("82225f1fa1e4d3b00c63700f691fc0dc7c9bdab8a996e6a78f451f9a15bd74fc" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" default))
  '(global-flycheck-mode t)
  '(inhibit-startup-screen t)
  '(markdown-command "/usr/local/bin/pandoc")
  '(package-selected-packages
-   (quote
-    (auctex multiple-cursors exec-path-from-shell flycheck elpy flymd markdown-mode tangotango-theme)))
- '(send-mail-function (quote mailclient-send-it))
+   '(json-mode auctex multiple-cursors exec-path-from-shell flycheck elpy flymd markdown-mode tangotango-theme))
+ '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode t))
 
 ;; Font
@@ -47,7 +45,7 @@
  '(default ((t (:height 120 :family "DejaVu Sans Mono")))))
 
 
-;;;; ==========================================================================
+;;;; =========================================================================
 ;;;; Mods and functions
 ;;;; =========================================================================
 
@@ -63,9 +61,9 @@
 
 ;; Nyan-mode
 (add-to-list 'load-path "/Users/Owner/.emacs.d/plugins/nyan-mode")
-(require 'nyan-mode)
-(setq-default nyan-wavy-trail t)
-(nyan-mode)
+;(require 'nyan-mode)
+;(setq-default nyan-wavy-trail t)
+;(nyan-mode)
 
 ;; Camel-case function
 (defun camelCase-to_underscores (start end)
@@ -187,13 +185,13 @@
 ;;; ================================
 (elpy-enable)
 ;; python version for elpy
-;(setq elpy-rpc-python-command "/usr/local/bin/python3") ;Local
-(setq elpy-rpc-python-command "python3") ;Server
+(setq elpy-rpc-python-command "/usr/bin/python3") ;Local
+;(setq elpy-rpc-python-command "python3") ;Server
 
 ;; python version for interactive shell
-;(setq python-shell-interpreter "/usr/local/bin/python3")
-;(setq python-shell-interpreter "python3")
-(setq python-shell-interpreter "/home/nazarovs/software/anaconda3/envs/pytorch/bin/python3")
+;(setq python-shell-interpreter "/usr/bin/python3")
+(setq python-shell-interpreter "python3")
+;(setq python-shell-interpreter "/home/nazarovs/software/anaconda3/envs/pytorch/bin/python3") ;sever
 ;(setq python-shell-interpreter "/home/nazarovs/software/anaconda3/envs/sde/bin/python3")
 
 ;; Turn off warning message about python has no realine tool
